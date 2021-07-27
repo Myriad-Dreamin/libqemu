@@ -3209,7 +3209,8 @@ void qemu_init(int argc, char **argv, char **envp)
                         gchar *typename = g_strdup(object_class_get_name(
                                                    OBJECT_CLASS(el->data)));
                         /* omit qtest which is used for tests only */
-                        if (g_strcmp0(typename, ACCEL_CLASS_NAME("qtest")) &&
+                        if ((g_strcmp0(typename, ACCEL_CLASS_NAME("qtest")) ||
+                                g_strcmp0(typename, ACCEL_CLASS_NAME("kfuzz"))) &&
                             g_str_has_suffix(typename, ACCEL_CLASS_SUFFIX)) {
                             gchar **optname = g_strsplit(typename,
                                                          ACCEL_CLASS_SUFFIX, 0);

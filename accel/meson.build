@@ -3,6 +3,7 @@ softmmu_ss.add(files('accel-softmmu.c'))
 user_ss.add(files('accel-user.c'))
 
 subdir('qtest')
+subdir('kfuzz')
 subdir('kvm')
 subdir('tcg')
 subdir('xen')

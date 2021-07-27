@@ -2269,6 +2269,14 @@ foreach target : target_dirs
                link_depends: [block_syms, qemu_syms] + exe.get('link_depends', []),
                link_args: link_args,
                gui_app: exe['gui'])
+    emulator_lib = library(exe_name, files('softmmu/lib_main.c'),
+                  install: false,
+                  c_args: c_args,
+                  dependencies: arch_deps + deps + exe['dependencies'],
+                  objects: lib.extract_all_objects(recursive: true),
+                  link_language: link_language,
+                  link_depends: [block_syms, qemu_syms] + exe.get('link_depends', []),
+                  link_args: link_args)
 
     if exe_sign
       emulators += {exe['name'] : custom_target(exe['name'],
