@@ -36,4 +36,13 @@ int kfuzz_qemu_io_read(qemu_hw_addr_t phys_addr, uint64_t *data, uint32_t len);
 
 int kfuzz_qemu_io_write(qemu_hw_addr_t phys_addr, uint64_t data, uint32_t len);
 
+
+uint64_t kfuzz_qemu_map_page(struct kernel_pci_dev *dev, void *vaddr,
+                             unsigned long size);
+
+void kfuzz_qemu_dma_unmap(struct kernel_pci_dev *dev,
+                          unsigned long long dma_handle, unsigned long size);
+
+void kfuzz_qemu_clean_unmapped_pages(void);
+
 #endif //LIBQEMU_QEMU_H

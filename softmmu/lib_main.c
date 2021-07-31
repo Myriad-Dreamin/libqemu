@@ -29,8 +29,11 @@
 #include "kfuzz/qemu.h"
 #include "kfuzz/qemu-internal.h"
 
+extern GMutex kfuzz_dma_pages_mutex;
+
 int kfuzz_qemu_module_begin(int argc, char **argv, char **envp) {
     pthread_spin_init(&io_available, 0);
+    g_mutex_init(&kfuzz_dma_pages_mutex);
     qemu_init(argc, argv, envp);
     return 0;
 }
@@ -41,6 +44,7 @@ int kfuzz_qemu_module_loop(void) {
 }
 
 int kfuzz_qemu_module_cleanup(void) {
+    kfuzz_qemu_clean_unmapped_pages();
     qemu_cleanup();
     return 0;
 }
