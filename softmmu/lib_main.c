@@ -27,12 +27,10 @@
 #include "sysemu/sysemu.h"
 
 #include "kfuzz/qemu.h"
-
+#include "kfuzz/qemu-internal.h"
 
 int kfuzz_qemu_module_begin(int argc, char **argv, char **envp) {
-//    pthread_spin_init(&io_available, 0);
-//    pthread_spin_lock(&io_available);
-//    kfuzz_idle_cpu = 0;
+    pthread_spin_init(&io_available, 0);
     qemu_init(argc, argv, envp);
     return 0;
 }

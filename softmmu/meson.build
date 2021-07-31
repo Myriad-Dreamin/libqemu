@@ -21,6 +21,8 @@ specific_ss.add(when: ['CONFIG_SOFTMMU', 'CONFIG_TCG'], if_true: [files(
   'icount.c'
 )])
 
+subdir('kfuzz')
+
 softmmu_ss.add(files(
   'bootdevice.c',
   'dma-helpers.c',
