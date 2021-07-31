@@ -1444,6 +1444,8 @@ void pci_default_write_config(PCIDevice *d, uint32_t addr, uint32_t val_in, int 
 /***********************************************************/
 /* generic PCI irq support */
 
+void kfuzz_pci_irq_event(void *opaque, int irq_num, int level);
+
 /* 0 <= irq_num <= 3. level must be 0 or 1 */
 static void pci_irq_handler(void *opaque, int irq_num, int level)
 {
@@ -1461,6 +1463,7 @@ static void pci_irq_handler(void *opaque, int irq_num, int level)
     if (pci_irq_disabled(pci_dev))
         return;
     pci_change_irq_level(pci_dev, irq_num, change);
+    kfuzz_pci_irq_event(opaque, irq_num, level);
 }
 
 static inline int pci_intx(PCIDevice *pci_dev)
